@@ -94,8 +94,9 @@ export class AsyncapiScanner {
       [],
     );
 
-    const schemas = this.explorer.getSchemas();
-    this.addExtraModels(schemas, extraModels);
+    const denormalizedSchemas = this.explorer.getSchemas();
+    this.addExtraModels(denormalizedSchemas, extraModels);
+    const schemas = this.transformer.normalizeSchemas(denormalizedSchemas);
     const normalizedChannels = this.transformer.normalizeChannels(
       flatten(denormalizedChannels),
     );
