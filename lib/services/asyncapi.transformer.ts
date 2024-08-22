@@ -26,6 +26,7 @@ export class AsyncapiTransformer {
         parameters: doc.root.parameters,
         subscribe: doc.operations.sub,
         publish: doc.operations.pub,
+        servers: doc.root.servers,
       };
       return { key, value };
     });
@@ -50,6 +51,12 @@ export class AsyncapiTransformer {
     const normalizedSchemas = Object.entries(denormalizedSchemas).reduce(
       (acc, [key, value]) => {
         const { properties } = value;
+
+        if (!properties) {
+          acc[key] = value;
+          return acc;
+        }
+
         acc[key] = {
           ...value,
           properties: Object.entries(properties).reduce(

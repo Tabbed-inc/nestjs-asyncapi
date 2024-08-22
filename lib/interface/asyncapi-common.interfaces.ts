@@ -31,6 +31,7 @@ export interface AsyncApiDocument {
 
 export type AsyncChannelsObject = Record<string, AsyncChannelObject>;
 export interface AsyncChannelObject {
+  servers?: Record<string, AsyncServerObject>;
   description?: string;
   subscribe?: AsyncOperationObject;
   publish?: AsyncOperationObject;

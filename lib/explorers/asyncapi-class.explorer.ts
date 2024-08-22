@@ -28,3 +28,7 @@ export const exploreControllerMetadata = (metatype: Type<unknown>) => {
 export const exploreGatewayMetadata = (metatype: Type<unknown>) => {
   return Reflect.getMetadata(GATEWAY_METADATA, metatype);
 };
+
+export const exploreServerMetadata = (metatype: Type<unknown>) => {
+  return Reflect.getMetadata(DECORATORS.AsyncApiServer, metatype);
+};

@@ -5,4 +5,5 @@ export const DECORATORS = {
   AsyncApiOperation: `${DECORATORS_PREFIX}/operation`,
   AsyncApiPub: `${DECORATORS_PREFIX}/pub`,
   AsyncApiSub: `${DECORATORS_PREFIX}/sub`,
+  AsyncApiServer: `${DECORATORS_PREFIX}/server`,
 };
