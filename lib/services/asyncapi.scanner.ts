@@ -100,9 +100,11 @@ export class AsyncapiScanner {
     const normalizedChannels = this.transformer.normalizeChannels(
       flatten(denormalizedChannels),
     );
+    const servers = this.explorer.getServers();
     return {
       ...normalizedChannels,
       components: { schemas },
+      servers,
     };
   }
 

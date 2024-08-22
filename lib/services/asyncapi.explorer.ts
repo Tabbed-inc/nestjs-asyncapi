@@ -9,13 +9,19 @@ import {
   exploreAsyncApiOperationMetadata,
   exploreControllerMetadata,
   exploreGatewayMetadata,
+  exploreServerMetadata,
 } from '../explorers';
-import { DenormalizedDoc, DenormalizedDocResolvers } from '../interface';
+import {
+  AsyncServerObject,
+  DenormalizedDoc,
+  DenormalizedDocResolvers,
+} from '../interface';
 
 export class AsyncApiExplorer {
   private readonly metadataScanner = new MetadataScanner();
   private readonly schemas: SchemaObject[] = [];
   private readonly schemaRefsStack: string[] = [];
+  private readonly servers: Record<string, AsyncServerObject> = {};
 
   private operationIdFactory = (controllerKey: string, methodKey: string) =>
     controllerKey ? `${controllerKey}_${methodKey}` : methodKey;
@@ -68,6 +74,14 @@ export class AsyncApiExplorer {
     return ret;
   }
 
+  public getServers(): Record<string, AsyncServerObject> {
+    const ret = { ...this.servers } as unknown as Record<
+      string,
+      AsyncServerObject
+    >;
+    return ret;
+  }
+
   private generateDenormalizedDocument(
     metatype: Type<unknown>,
     prototype: Type<unknown>,
@@ -80,6 +94,15 @@ export class AsyncApiExplorer {
       unknown,
       DenormalizedDoc[]
     >(instance, prototype, (name) => {
+      const serverMetadata = exploreServerMetadata(metatype);
+      const servers = serverMetadata?.map(({ url }) => url);
+      if (serverMetadata) {
+        for (const server of serverMetadata) {
+          const { name, ...serverObject } = server;
+          this.servers[name] = serverObject;
+        }
+      }
+
       const targetCallback = prototype[name];
       const methodMetadata = documentResolvers.root.reduce((_metadata, fn) => {
         const serviceMetadata = fn(metatype);
@@ -109,7 +132,7 @@ export class AsyncApiExplorer {
         );
 
         return Object.keys(channels).map((channel) => ({
-          root: { ...serviceMetadata, name: channel },
+          root: { ...serviceMetadata, servers, name: channel },
           operations: channels[channel],
         }));
       }, []);
