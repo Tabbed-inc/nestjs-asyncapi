@@ -69,7 +69,7 @@ export class AsyncapiTransformer {
                 if (nullable) {
                   propAcc[propKey] = {
                     ...rest,
-                    oneOf: [{ type: 'null' }, $ref ? $ref : { type }],
+                    oneOf: [{ type: 'null' }, $ref ? $ref : { type, ...rest }],
                   };
                 } else {
                   propAcc[propKey] = propValue;
