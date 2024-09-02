@@ -1,0 +1,23 @@
+diff --git a/node_modules/@asyncapi/generator/lib/generator.js b/node_modules/@asyncapi/generator/lib/generator.js
+index dd5bff8..894fbd6 100644
+--- a/node_modules/@asyncapi/generator/lib/generator.js
++++ b/node_modules/@asyncapi/generator/lib/generator.js
+@@ -24,8 +24,6 @@ const {
+   getInvalidOptions,
+   isReactTemplate,
+   isJsFile,
+-  registerSourceMap,
+-  registerTypeScript,
+   getTemplateDetails,
+   convertCollectionToObject,
+ } = require('./utils');
+@@ -55,9 +53,6 @@ const shouldIgnoreDir = dirPath =>
+   dirPath === '.git'
+   || dirPath.startsWith(`.git${path.sep}`);
+ 
+-registerSourceMap();
+-registerTypeScript();
+-
+ class Generator {
+   /**
+    * Instantiates a new Generator object.
