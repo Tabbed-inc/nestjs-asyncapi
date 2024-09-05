@@ -41,7 +41,6 @@
     "@asyncapi/generator": "1.13.1",
     "@asyncapi/html-template": "0.28.4",
     "js-yaml": "4.1.0",
-    "patch-package": "^8.0.0",
     "reflect-metadata": "0.2.1"
   },
   "devDependencies": {
@@ -108,7 +107,6 @@
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
     "prerelease": "npm run build",
-    "release": "release-it",
-    "postinstall": "patch-package"
+    "release": "release-it"
   }
 }
