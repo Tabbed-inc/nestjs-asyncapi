@@ -27,6 +27,10 @@ export class AsyncApiModule {
       ...(config.components || {}),
       ...document.components,
     };
+    document.servers = {
+      ...(config.servers || {}),
+      ...document.servers,
+    };
 
     return {
       asyncapi: '2.5.0',
